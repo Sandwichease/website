@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
   <title>Sandwichease</title>
   <meta name="description" content="Sandwichease — C and C++ projects, Linux experiments.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%9F%3C/text%3E%3C/svg%3E">
@@ -13,6 +14,10 @@
   <script src="js/main.js" defer></script>
 </head>
 <body>
+  <div id="dark-warning" hidden>
+    <span>Une extension de mode sombre modifie les couleurs de ce site. Désactive-la sur cette page pour un affichage correct.</span>
+    <button id="dark-warning-close" type="button">OK</button>
+  </div>
   <img
     src="./assets/images/human.jpg"
     class="side-image"

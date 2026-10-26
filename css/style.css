@@ -320,3 +320,56 @@ footer {
   image-rendering: pixelated;
   z-index: 10;
 }
+
+/* ---------- Anti dark mode forcé du navigateur ---------- */
+/* Dit au navigateur que le site est déjà sombre : il ne retouche plus les couleurs */
+:root { color-scheme: dark; }
+
+/* ---------- Correction des images latérales ---------- */
+/* Les images se calent dans l'espace libre à côté de la page (820px) */
+.side-image,
+.side-image2,
+.side-image3,
+.side-image4 {
+  z-index: 0;                 /* plus jamais au-dessus du texte */
+  pointer-events: none;       /* ne bloque plus les clics */
+  width: clamp(120px, calc((100vw - var(--page-width)) / 2 - 40px), 400px);
+  max-height: 35vh;           /* évite que deux images se chevauchent */
+  object-fit: contain;        /* pas de déformation */
+}
+
+/* Marge fixe de 20px par rapport au bord de l'écran */
+.side-image,
+.side-image4  { right: 20px; }
+.side-image2,
+.side-image3  { left: 20px; }
+
+/* Écran trop étroit : on cache les images au lieu de recouvrir le contenu */
+@media (max-width: 1199px) {
+  .side-image,
+  .side-image2,
+  .side-image3,
+  .side-image4 { display: none; }
+}
+
+/* ---------- Bandeau d'avertissement mode sombre forcé ---------- */
+#dark-warning {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;               /* au-dessus de tout le reste */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  font-size: 16px;
+  color: #fff;
+  background: var(--hot);
+}
+#dark-warning[hidden] { display: none; }  /* garde le bandeau caché tant qu'on n'en a pas besoin */
+#dark-warning button {
+  font: inherit;
+  cursor: pointer;
+}

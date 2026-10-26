@@ -118,3 +118,29 @@ function renderCatalogue(projects) {
 }
 
 loadProjects().then(renderCatalogue);
+
+/* ---------- 4. Avertissement Dark Reader ---------- */
+// Affiche un bandeau si l'extension Dark Reader est active sur la page.
+const darkWarning = $("dark-warning");
+let warningClosedByUser = false;
+
+// Dark Reader ajoute <meta name="darkreader"> et un attribut data-darkreader-* sur <html>
+const isDarkReaderActive = () =>
+  document.querySelector('meta[name="darkreader"]') !== null ||
+  document.documentElement.hasAttribute("data-darkreader-mode");
+
+const updateDarkWarning = () => {
+  darkWarning.hidden = warningClosedByUser || !isDarkReaderActive();
+};
+
+// L'extension s'active parfois après le chargement : on surveille <head> et <html>
+const watcher = new MutationObserver(updateDarkWarning);
+watcher.observe(document.head, { childList: true });
+watcher.observe(document.documentElement, { attributes: true });
+
+$("dark-warning-close").addEventListener("click", () => {
+  warningClosedByUser = true;
+  updateDarkWarning();
+});
+
+updateDarkWarning();
